@@ -1,0 +1,27 @@
+package Set2;
+
+import java.util.Scanner;
+
+public class PizzaNew {
+	
+	public static void main(String[] args) {
+		// create scanner object
+		Scanner s = new Scanner(System.in);
+		// Get number of test cases 
+		int t = s.nextInt();
+		
+		for (int i = 0; i < t; i++) {
+			
+			int NoOfToppings = s.nextInt();
+			int badCombinations = s.nextInt();
+			
+			
+			
+		}
+		
+		s.close();
+	}
+
+}
+
+

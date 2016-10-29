@@ -1,0 +1,32 @@
+package Set1;
+
+import java.util.Scanner;
+
+public class Watson {
+	
+	public static void main(String[] args) {
+		String eqn[];
+		int test = 1-(8*(5^3));
+		System.out.println(test);
+		// create scanner object
+		Scanner s = new Scanner(System.in);
+		// loop over all test cases
+		int t = s.nextInt();
+		eqn =new String[t];
+		s.nextLine();
+		for (int i = 0; i < t; i++) {
+			eqn[i]=s.nextLine();				
+		}
+		
+		for (int i = 0; i < t; i++) {
+			
+		}
+
+		
+		for (int i = 0; i < t; i++) {
+			System.out.println(eqn[i]);
+		}
+		s.close();
+	}
+
+}

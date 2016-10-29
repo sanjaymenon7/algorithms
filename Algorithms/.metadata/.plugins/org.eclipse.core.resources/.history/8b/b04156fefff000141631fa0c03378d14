@@ -1,0 +1,65 @@
+package bellmanford;
+
+public class ShortestPathUsingBellmanFordAlgorithm {
+	private static WeightedGraph wgraph;
+
+	// The main function that finds shortest distances from src to all other
+	// vertices using Bellman-Ford algorithm. The function also detects negative
+	// weight cycle
+	static void BellmanFord() {
+		int src = 0;
+		int V = wgraph.vertexList.length;
+		int E = 8;
+		int dist[] = new int[V];
+
+		// Step 1: Initialize distances from src to all other vertices as
+		// INFINITE
+		for (int i = 0; i < V; i++)
+			dist[i] = Integer.MAX_VALUE;
+		dist[src] = 0;
+
+		// Step 2: Relax all edges |V| - 1 times. A simple shortest path from
+		// src
+		// to any other vertex can have at-most |V| - 1 edges
+		for (int i = 1; i <= V - 1; i++) {
+			for (int j = 0; j < E; j++) {
+				int weight = wgraph.adjMat[i][j];
+				if (dist[i] + weight < dist[j])
+					dist[j] = dist[i] + weight;
+			}
+		}
+		
+		for (int i = 0; i < dist.length; i++) {
+			System.out.println(dist[i]);
+		}
+		return;
+	}
+
+	// Driver program to test above functions
+	public static void main(String[] args) {
+
+		wgraph = new WeightedGraph();
+		/* Let us create the graph given in above example */
+		int V = 5; // Number of vertices in graph
+		int E = 8; // Number of edges in graph
+
+		wgraph.addVertex('A'); // 0
+		wgraph.addVertex('B'); // 1
+		wgraph.addVertex('C'); // 2
+		wgraph.addVertex('D'); // 3
+		wgraph.addVertex('E'); // 4
+
+		wgraph.addEdge(0, 1, -1); // AB -1
+		wgraph.addEdge(0, 2, 4); // Ac 4
+		wgraph.addEdge(1, 2, 3); // BC 10
+		wgraph.addEdge(1, 3, 2); // BD 2
+		wgraph.addEdge(1, 4, 2); // BE 7
+		wgraph.addEdge(3, 2, 5); // DC 5
+		wgraph.addEdge(3, 1, 1); // DB 1
+		wgraph.addEdge(4, 3, -3); // ED 5
+
+		BellmanFord();
+
+		
+	}
+}

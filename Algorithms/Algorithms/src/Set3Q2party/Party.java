@@ -1,0 +1,83 @@
+package Set3Q2party;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+
+public class Party {
+	public static final int INFINITY = Integer.MAX_VALUE;
+
+    public static void main(String[] args) {
+        //initialize reader and writer
+        BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        //output string
+        String outputFormat = new String("%s\n");
+
+        try {
+            int t = Integer.parseInt(bufferReader.readLine());
+
+            for(int testcase=0; testcase<t; testcase++) {
+                int numOfNodes = Integer.parseInt(bufferReader.readLine());
+                int[][]adjMatrix = new int[numOfNodes][numOfNodes];
+
+                int wgt = 0;
+                for (int i = 0; i < numOfNodes; i++) {
+                    String[] input = bufferReader.readLine().split("\\s+");
+                    wgt = Integer.parseInt(input[0]) * -1;
+                    int numOfEdges = Integer.parseInt(input[1]);
+                    for (int j=0; j < numOfEdges; j++) {
+                        int destination = Integer.parseInt(input[j+2]);
+                        adjMatrix[i][destination-1] = wgt;
+                    }
+                }
+
+                int totalWeight = getShortestPaths(adjMatrix);
+                // Weight of the last node.
+                totalWeight = (-1*totalWeight) + (-1*wgt);
+                bufferWriter.write(String.format(outputFormat, "Case #" + (testcase+1) + ": " + totalWeight));
+                bufferWriter.flush();
+
+                if (testcase != t) {
+                    bufferReader.readLine();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static int getShortestPaths(int[][]adjMatrix) {
+        int numOfNodes = adjMatrix.length;
+        LinkedList<Vertex> queue = new LinkedList<Vertex>();
+        Vertex[] nodes = new Vertex[numOfNodes];
+        for (int i=0; i<numOfNodes; i++) {
+            nodes[i] = new Vertex(i, INFINITY);
+        }
+
+        nodes[0].distance = 0;
+        queue.add(nodes[0]);
+
+        while (!queue.isEmpty()) {
+        	Vertex n = queue.remove();
+
+            int nodeIndex = n.node;
+            for (int i=0; i<numOfNodes; i++) {
+                if (adjMatrix[nodeIndex][i] != 0) {
+                    if (nodes[i].distance > (nodes[nodeIndex].distance + adjMatrix[nodeIndex][i])) {
+                        nodes[i].distance =  nodes[nodeIndex].distance + adjMatrix[nodeIndex][i];
+                        if (queue.contains(nodes[i])) {
+                            queue.remove(nodes[i]);
+                        }
+                        queue.add(nodes[i]);
+                    }
+                }
+            }
+        }
+        return nodes[numOfNodes-1].distance;
+    }
+
+}

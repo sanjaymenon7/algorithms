@@ -1,0 +1,78 @@
+package Set1;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class NewChess {
+	public static void main(String[] args) {
+		int[] numberOfTeams =new int[1000];
+		ArrayList<int[][]> teamList =new ArrayList<int[][]>();
+		// create scanner object
+		Scanner s = new Scanner(System.in);
+		// loop over all test cases
+		int t = s.nextInt();
+		for (int i = 0; i < t; i++) {
+			numberOfTeams[i]= s.nextInt();
+			int[][] teams =new int[numberOfTeams[i]][5];
+			for (int k = 0; k <numberOfTeams[i] ; k++) {
+				for (int j = 0; j < 5; j++) {
+					teams[k][j] = s.nextInt();
+				}
+			}
+			teamList.add(teams);
+		}
+		
+		for (int i = 0; i < t; i++) {
+			int n= numberOfTeams[i];
+			int[][] teamPerSchool = teamList.get(i); 
+			
+			//sorting each row
+			for (int row = 0; row < teamPerSchool.length; row++) {
+				for (int column = 0; column < teamPerSchool[0].length; column++) {
+					for (int columnTwo = column + 1; columnTwo < teamPerSchool[0].length; columnTwo++) {
+						if (teamPerSchool[row][columnTwo] > teamPerSchool[row][column])
+						{
+							int temp = teamPerSchool[row][column];
+							teamPerSchool[row][column] = teamPerSchool[row][columnTwo];
+							teamPerSchool[row][columnTwo] = temp;
+						}
+
+					}
+
+				}
+
+			}
+			
+			//re-arranging the rows according to the skill values.
+			for(int row =0 ; row < teamPerSchool.length; row++){
+				for (int rowTow = row +1; rowTow < teamPerSchool.length; rowTow++) {
+					for (int column = 0; column < 5; column++) {
+						if (teamPerSchool[rowTow][column]>teamPerSchool[row][column]){
+							for (int m = 0; m < 5; m++) {
+								int temp = teamPerSchool[row][m];
+								teamPerSchool[row][m] = teamPerSchool[rowTow][m];
+								teamPerSchool[rowTow][m] = temp;
+							}
+							break;
+						}
+					}
+				}
+			}
+			
+			int no = i+1;
+			System.out.println("Case #"+no+":");
+			for (int k = 0; k < n; k++) {
+				for (int j = 0; j < 5; j++) {
+					if(j !=4)
+						System.out.print(teamPerSchool[k][j]+" ");
+					else
+						System.out.print(teamPerSchool[k][j]);
+				}
+				System.out.print("\n");
+			}
+			
+		}
+
+		s.close();
+	}
+}

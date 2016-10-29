@@ -1,0 +1,42 @@
+package bellmanford;
+
+public class WeightedGraph {
+	public final int MAX_VERTS = 20;
+	public final int INFINITY = 1000000;
+	public Vertex vertexList[]; // list of vertices
+	public int adjMat[][]; // adjacency matrix
+	public int nVerts; // current # of verts	
+		
+	public WeightedGraph() {
+		// Initialize List of Vertices
+		vertexList = new Vertex[MAX_VERTS];
+
+		// Initialize Adjacency Matrix
+		adjMat = new int[MAX_VERTS][MAX_VERTS];
+
+		nVerts = 0;
+
+		// Initialize Adjacency Matrix Values
+		/*
+		 * Unlike adjacency matrix for unweighted graphs, we can't use 0s,
+		 * because the value indicates weight, not a boolean
+		 */
+		for (int j = 0; j < MAX_VERTS; j++)
+			for (int k = 0; k < MAX_VERTS; k++)
+				adjMat[j][k] = INFINITY;
+		
+	}
+
+	public void addVertex(char lab) {
+		vertexList[nVerts++] = new Vertex(lab);
+	}
+
+	public void addEdge(int start, int end, int weight) {
+		adjMat[start][end] = weight;
+		adjMat[end][start] = weight;
+	}
+
+	public void displayVertex(int v) {
+		System.out.print(vertexList[v].label);
+	}
+}

@@ -1,0 +1,29 @@
+package Set1;
+
+import java.util.Scanner;
+
+public class Chat {
+	public static void main(String[] args) {
+		// create scanner object
+		Scanner s = new Scanner(System.in);
+		// loop over all test cases
+		int t = s.nextInt();
+		if (t >= 1 && t <= 20) {
+			for (int i = 1; i <= t; i++) {
+				// read several types of input
+				String str = s.next();
+				if (str.length()>=2 && str.length() <= 160) {
+					// output : use the possibility you like more
+					String[] inputstr= str.split("#", 2);
+					int x =Integer.parseInt(inputstr[0]);
+					String msg= inputstr[1];
+					System.out.println("Case  #" + i + ": " + str);
+				}
+
+			}
+
+		}
+
+		s.close();
+	}
+}

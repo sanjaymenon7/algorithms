@@ -1,0 +1,5 @@
+package bellmanford;
+
+public class Edge implements Comparable<Edge>{
+
+}

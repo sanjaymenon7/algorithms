@@ -1,0 +1,113 @@
+package Set2;
+
+public class PizzaMain {
+
+	static int adjMatrix[][];
+
+	public static void main(String[] args) {
+
+		// TODO Auto-generated method stub
+
+		// create scanner object
+
+		Scanner sc = new Scanner(System.in);
+
+		// get number of testcases
+
+		int t = sc.nextInt();
+
+		for (int tc = 1; tc <= t; tc++)
+
+		{
+
+			int n = sc.nextInt();
+
+			int m = sc.nextInt();
+
+			adjMatrix = new int[n][n];
+
+			int arr[] = new int[2];
+
+			for (int i = 0; i < m; i++)
+
+			{
+
+				for (int j = 0; j < 2; j++)
+
+				{
+
+					arr[j] = sc.nextInt();
+
+				}
+
+				int topping1 = arr[0] - 1;
+
+				int topping2 = arr[1] - 1;
+
+				adjMatrix[topping1][topping2] = adjMatrix[topping2][topping1] = 1;
+
+			}
+
+			BipartiteBfs c = new BipartiteBfs(n);
+
+			int[] visited = new int[n];
+
+			boolean allVisited = false, isBP = false, printed = false;
+
+			int vpointer = 0;
+
+			while (allVisited == false)
+
+			{
+
+				for (int i = 0; i < visited.length; i++)
+
+				{
+
+					if (visited[i] == 0)
+
+					{
+
+						vpointer = i;
+
+						break;
+
+					}
+
+					if (i == visited.length - 1)
+
+						allVisited = true;
+
+				}
+
+				if (c.isBipartite(adjMatrix, vpointer, visited))
+
+					isBP = true;
+
+				else
+
+				{
+
+					System.out.println("Case #" + tc + ": no");
+
+					printed = true;
+
+					break;
+
+				}
+
+			}
+
+			if (isBP && !printed)
+
+			{
+
+				System.out.println("Case #" + tc + ": yes");
+
+			}
+
+		}
+
+	}
+
+}

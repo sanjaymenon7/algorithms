@@ -1,0 +1,104 @@
+package Set3Q4;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class Dijkstra {
+	public static void computePaths(Vertex source) {
+		source.minDistance = 0.;
+		PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+		vertexQueue.add(source);
+
+		while (!vertexQueue.isEmpty()) {
+			Vertex u = vertexQueue.poll();
+
+			// Visit each edge exiting u
+			for (Edge e : u.adjacencies) {
+				Vertex v = e.target;
+				double weight = e.weight;
+				double distanceThroughU = u.minDistance + weight;
+				if (distanceThroughU < v.minDistance) {
+					vertexQueue.remove(v);
+					v.minDistance = distanceThroughU;
+					v.previous = u;
+					vertexQueue.add(v);
+				}
+			}
+		}
+	}
+
+	public static List<Vertex> getShortestPathTo(Vertex target) {
+		List<Vertex> path = new ArrayList<Vertex>();
+		for (Vertex vertex = target; vertex != null; vertex = vertex.previous)
+			path.add(vertex);
+		Collections.reverse(path);
+		return path;
+	}
+
+	public static void main(String[] args) {
+
+		
+		 Scanner sc = new Scanner(System.in);
+		// get number of testcases
+	        int t = sc.nextInt();
+	        for (int testCase = 1; testCase <= t; testCase++){
+	        	 
+	        	 int numOfCities = sc.nextInt();
+	        	 int[][] cityAdj = new int[numOfCities+1][numOfCities+1];
+	        	 int numOfRoads = sc.nextInt();
+	        	 int numOfSuperMrkt = sc.nextInt();
+	        	 int leaCity = sc.nextInt();
+	        	 int peterCity = sc.nextInt();
+	        	 Vertex[] vertices = new Vertex[numOfCities+numOfSuperMrkt];
+	        	 
+	        	 
+	        	 Vertex currentvertex;
+	        	 Vertex currentsource;
+	        	 Vertex currentdestination;
+	        	 for (int city = 0; city < numOfCities; city++) {
+					
+				}
+	        	 for (int i = 0; i < numOfEdges; i++){
+	        		 int source = sc.nextInt();
+	                 int destination = sc.nextInt();
+	                 int weight = sc.nextInt();
+	                 if(vertices[source] != null){
+	                	  currentsource = vertices[source];
+	                 }
+	                 else{
+	                	 currentsource = new Vertex(Integer.toString(source));
+	                	 currentsource.adjacencies = new ArrayList<Edge>();
+	                 }
+	                 if(vertices[destination] != null){
+	                	 currentdestination = vertices[destination];
+	                 }
+	                 else{
+	                	 currentdestination = new Vertex(Integer.toString(destination));
+	                	 currentdestination.adjacencies = new ArrayList<Edge>();
+	                 }
+	                
+	                 Edge forwardedge = new Edge(currentdestination,weight);
+	                 Edge backwardedge = new Edge(currentsource,weight);
+	                 currentsource.adjacencies.add(forwardedge);
+	                 currentdestination.adjacencies.add(backwardedge);
+	                 vertices[source] = currentsource;
+	                 vertices[destination] = currentdestination;
+	        	 }
+	        	 computePaths(vertices[1]);
+	        	 Vertex v = vertices[vertices.length-1];
+	        	 System.out.println("Case #"+testCase+": "+(int)v.minDistance);
+	        	 
+	        	/* for (int k = 1; k <= vertices.length-1; k++) {
+	        		 Vertex v = vertices[k];
+	        		 System.out.println("Distance to " + v + ": " + v.minDistance);
+	        		 List<Vertex> path = getShortestPathTo(v);
+	        		 System.out.println("Path: " + path);
+				}*/
+	     
+	        	 
+	        }
+	}
+}

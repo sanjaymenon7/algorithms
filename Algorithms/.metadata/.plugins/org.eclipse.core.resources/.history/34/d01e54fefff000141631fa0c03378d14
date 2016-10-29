@@ -1,0 +1,13 @@
+package bellmanford;
+
+public class Vertex {
+	
+	public char label; // e.g. 'A','B','C'
+	public boolean isInTree;
+
+	public Vertex(char lab) {
+		label = lab;
+		isInTree = false;
+	}
+
+}

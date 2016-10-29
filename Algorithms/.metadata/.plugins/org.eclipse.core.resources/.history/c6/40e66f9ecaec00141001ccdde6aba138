@@ -1,0 +1,30 @@
+package Set2;
+
+import java.util.Scanner;
+
+public class PizzaNew {
+	
+	public static void main(String[] args) {
+		// create scanner object
+		Scanner s = new Scanner(System.in);
+		// loop over all test cases
+		int t = s.nextInt();
+		if (t>=1 && t<=20){
+			for (int i = 1; i <= t; i++) {
+				// read several types of input
+				String st = s.next();
+				if(st.length()<=100){
+					// output : use the possibility you like more
+					System.out.println("Case  #" + i + ": Hello " + st+"!");
+				}
+				
+			}
+			
+		}
+		
+		s.close();
+	}
+
+}
+
+}
